@@ -28,9 +28,9 @@
         "name": "Wenlin Zhang"
       }
     ],
-    "concept_doi": null,
+    "concept_doi": "10.5281/zenodo.24486646",
     "current_version": 3,
-    "doi": null,
+    "doi": "10.5281/zenodo.24486647",
     "lean_source": {
       "revision": "03150b25ffad5ced1bebdca2efc8c05b484c1eca",
       "url": "https://github.com/the-omega-institute/trureturing/blob/03150b25ffad5ced1bebdca2efc8c05b484c1eca/D5/S1/Recurrence/MatharA379464/Result.lean"
