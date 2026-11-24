@@ -1,0 +1,66 @@
+{
+  "files": {
+    "pdf": {
+      "bytes": 122725,
+      "matches_public": true,
+      "path": "paper.pdf",
+      "public_sha256": "44f6e3826eec34ea82b4470ae3e81810b100ba522806afa46a29d07f39b08e3d",
+      "sha256": "44f6e3826eec34ea82b4470ae3e81810b100ba522806afa46a29d07f39b08e3d"
+    },
+    "source": {
+      "bytes": 21912,
+      "matches_public": true,
+      "path": "source.archive",
+      "public_sha256": "bfa9ef5a47892c07f99a16b6e1c09548bf1a99704dbf526aad5d01de9f18c103",
+      "sha256": "bfa9ef5a47892c07f99a16b6e1c09548bf1a99704dbf526aad5d01de9f18c103"
+    }
+  },
+  "source_identity": "Mathesis public projection",
+  "work": {
+    "abstract_text": "Using Prodinger's enumeration (arXiv:1912.06930v3, 2020, Theorem 1 and Section 3), we give alternative counting proofs and prove Mathar's eight-term recurrence for floor -2 paths (OEIS A379464, revision 20, second Formula, 29 January 2025, n >= 7) and his six-term recurrence for floor -1 (A379463, revision 16, second Formula, same date, n >= 5). An explicit differential-operator certificate transports the known Raney counts to the exact recurrences. We include every fixed lower floor by a finite polynomial correction, prove the recorded asymptotics, and correct the indexing and tree wording in A127902 and companion formulas in A069271.",
+    "authors": [
+      {
+        "affiliation": "ChronoAI Pte Ltd, Singapore",
+        "name": "Haobo Ma"
+      },
+      {
+        "affiliation": "National University of Singapore; ChronoAI Pte Ltd, Singapore",
+        "name": "Wenlin Zhang"
+      }
+    ],
+    "concept_doi": null,
+    "current_version": 3,
+    "doi": null,
+    "lean_source": {
+      "revision": "03150b25ffad5ced1bebdca2efc8c05b484c1eca",
+      "url": "https://github.com/the-omega-institute/trureturing/blob/03150b25ffad5ced1bebdca2efc8c05b484c1eca/D5/S1/Recurrence/MatharA379464/Result.lean"
+    },
+    "license": "CC-BY-4.0",
+    "msc": [],
+    "pdf": {
+      "bytes": 122725,
+      "sha256": "44f6e3826eec34ea82b4470ae3e81810b100ba522806afa46a29d07f39b08e3d",
+      "url": "/api/v1/collected-papers/mathar379464-bounded-path-recurrences/files/pdf?version=3"
+    },
+    "previous_version": null,
+    "publication": "public",
+    "published_on": "2026-11-24T00:57:15.307115592Z",
+    "record": "mathar379464-bounded-path-recurrences",
+    "repository_name": "mathar379464-bounded-path-recurrences",
+    "source": {
+      "bytes": 21912,
+      "sha256": "bfa9ef5a47892c07f99a16b6e1c09548bf1a99704dbf526aad5d01de9f18c103",
+      "url": "/api/v1/collected-papers/mathar379464-bounded-path-recurrences/files/source?version=3"
+    },
+    "title": "Mathar's path recurrences and alternative proofs of Prodinger's enumeration",
+    "versions": [
+      {
+        "previous_version": null,
+        "published_on": "2026-11-24T00:57:15.307115592Z",
+        "revision": "3",
+        "version": 3
+      }
+    ],
+    "work": "mathar379464-bounded-path-recurrences"
+  }
+}

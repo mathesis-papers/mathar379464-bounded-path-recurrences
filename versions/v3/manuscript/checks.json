@@ -1,0 +1,149 @@
+{
+  "status": "pass",
+  "arithmetic": "exact integers and rationals",
+  "symbolic_identities": [
+    "three factorial-ratio polynomial identities",
+    "three operator coefficient identities",
+    "Euler substitution identity",
+    "square-root coefficient 8/27"
+  ],
+  "finite_checks": {
+    "1": {
+      "path_formula": [
+        0,
+        240
+      ],
+      "recurrence": [
+        4,
+        240
+      ],
+      "initial_terms": [
+        1,
+        1,
+        1,
+        1,
+        2,
+        6,
+        16,
+        36,
+        75,
+        163,
+        391,
+        991
+      ]
+    },
+    "2": {
+      "path_formula": [
+        0,
+        240
+      ],
+      "recurrence": [
+        5,
+        240
+      ],
+      "initial_terms": [
+        1,
+        1,
+        1,
+        1,
+        3,
+        11,
+        31,
+        71,
+        150,
+        334,
+        826,
+        2146
+      ]
+    },
+    "3": {
+      "path_formula": [
+        0,
+        240
+      ],
+      "recurrence": [
+        7,
+        240
+      ],
+      "initial_terms": [
+        1,
+        1,
+        1,
+        1,
+        4,
+        16,
+        46,
+        106,
+        226,
+        514,
+        1306,
+        3466
+      ]
+    }
+  },
+  "sibling_checks": {
+    "all_floors": {
+      "floor_depth": [
+        0,
+        8
+      ],
+      "length": [
+        0,
+        120
+      ],
+      "exact_comparisons": 1089
+    },
+    "floor_minus_three_Raney_sum": [
+      0,
+      120
+    ],
+    "unasserted_Raney_extension": {
+      "floor_depth": 4,
+      "length": 4,
+      "actual": 5,
+      "naive_sum": 6
+    },
+    "power_coefficients": {
+      "multipliers": [
+        -5,
+        5
+      ],
+      "degrees": [
+        1,
+        16
+      ],
+      "exact_comparisons": 176
+    },
+    "A069271_inverse_power_correction": {
+      "degree": 2,
+      "value": 4,
+      "printed_value": -4
+    },
+    "A069271_PARI_factor_correction": {
+      "index": 0,
+      "value": 1,
+      "printed_value": 2
+    },
+    "A127902_offset_correction": {
+      "index": 4,
+      "value": 1,
+      "unshifted_formula": 2
+    },
+    "production_matrix": {
+      "powers": [
+        0,
+        30
+      ],
+      "upper_left_and_row_sum_comparisons": 62
+    }
+  },
+  "ordered_tree_vertices": [
+    1,
+    20
+  ],
+  "labeled_tree_counterexample": {
+    "vertices": 2,
+    "distinctly_labeled_rooted_trees": 2,
+    "A127902": 1
+  }
+}

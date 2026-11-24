@@ -1,0 +1,676 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,booktabs,array,longtable}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\coeff}[2]{[#1]#2}
+\newcommand{\Q}{\mathbb{Q}}
+\title{Mathar's path recurrences and alternative proofs\\of Prodinger's enumeration}
+\author{Haobo Ma\thanks{ChronoAI Pte Ltd, Singapore.}
+\and Wenlin Zhang\thanks{National University of Singapore; ChronoAI Pte Ltd, Singapore.}}
+\date{17 November 2026}
+\begin{document}
+\maketitle
+\begin{center}\small Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).\end{center}
+\begin{abstract}
+Using Prodinger's enumeration (arXiv:1912.06930v3, 2020, Theorem 1 and
+Section 3), we give alternative counting proofs and prove Mathar's eight-term
+recurrence for floor $-2$ paths (OEIS A379464, revision 20, second Formula,
+29 January 2025, $n\geq7$) and his six-term recurrence for floor $-1$
+(A379463, revision 16, second Formula, same date, $n\geq5$).
+An explicit differential-operator certificate transports the known Raney counts
+to the exact recurrences. We include every fixed lower floor by a finite
+polynomial correction, prove the recorded asymptotics, and correct the
+indexing and tree wording in A127902 and companion formulas in A069271.
+\end{abstract}
+
+\section{The paths and the recurrence conjectures}
+For $r\in\{1,2,3\}$ and $n\geq0$, let $a_r(n)$ count words of length $n$ in
+$\{1,0,-3\}$ with total sum zero and every prefix sum at least $1-r$.
+The empty word is counted once. Thus $a_3(n)$ is A379464, $a_2(n)$ is
+A379463, and $a_1(n)$ is A127902 at index $n+1$ \cite{oeis3,oeis2,oeis1}.
+These are respectively the lattice paths with steps $(1,1),(1,0),(1,-3)$
+whose floors are $-2,-1,0$.
+
+The two source lines are headed ``Conjecture D-finite with recurrence'' and
+signed R.\ J.\ Mathar on 29 January 2025. Their locators are A379464
+revision 20, second Formula, and A379463 revision 16, second Formula
+(split across two text-export lines). The coefficients are reproduced in
+Appendix~\ref{sec:coefficients}. Scheuerle recorded the two binomial programs
+on 7 January 2025; these formulas, rather than newly discovered terms, are
+the starting point.
+
+The zero-free counts are known: the Raney formula follows already from
+Krattenthaler's Theorem 10.4.5 and its cycle-lemma proof
+\cite{krattenthaler}. Prodinger's Theorem 1 credits Selkirk's
+2019 thesis and proves the lower-floor enumeration; his Section 3 treats
+arbitrary floors \cite{prodinger}. Drube later gives a general starting- and
+ending-height formula \cite[Theorem 2.3 and Corollary 2.4]{drube}.
+We reprove the counting statement, insert horizontal steps, and supply the
+explicit certificates for Mathar's recurrences. The all-floor formula below
+is a specialization of this earlier enumeration, not a new enumeration theorem.
+The corrections concern the literal formulas and conventions in the cited
+OEIS revisions.
+
+Asinowski, Hackl and Selkirk give the same prepend-and-rotate counting
+proof, including its periodic-rotation multiplicities
+\cite[Proposition 3, equation (2)]{ahs}; DeJager, Seidl, Naquin and Drube
+obtain the corresponding generating-function powers through Riordan arrays
+\cite[Corollary 11]{dejager}. Barry explicitly derives the zero-floor
+binomial sum in Example 16 of his article available online in November
+2015 \cite{barry}. The ordered-tree correspondence and its asymptotic
+specialization also follow from Banderier and Flajolet's earlier
+tree-code framework \cite[Examples 3 and 6]{bf}.
+Differential equations followed by coefficient extraction are standard
+recurrence tools; Mathar treats this general approach in \cite{mathar2021}.
+Here the contribution is the explicit operator identities for the stated
+path counts and source recurrences.
+
+Put $F_r(x)=\sum_{n\geq0}a_r(n)x^n$. All generating-function manipulations
+before Section~\ref{sec:asymptotic} take place in formal power series over $\Q$.
+
+\begin{theorem}\label{thm:main}
+For $r=1,2,3$ and $n\geq0$,
+\begin{equation}\label{eq:count}
+ a_r(n)=\sum_{k=0}^{\lfloor n/4\rfloor}\binom n{4k}
+             \frac{r}{4k+r}\binom{4k+r}{k}.
+\end{equation}
+Let $C(t)$ be the unique formal series with $C(0)=1$ satisfying
+$C(t)=1+tC(t)^4$. Then
+\begin{equation}\label{eq:gf}
+ F_r(x)=\frac1{1-x}C\!\left(\frac{x^4}{(1-x)^4}\right)^r.
+\end{equation}
+The coefficients $p_{r,j}(n)$ in Appendix~\ref{sec:coefficients} satisfy
+\begin{equation}\label{eq:recurrences}
+ \sum_{j=0}^{d_r}p_{r,j}(n)a_r(n-j)=0
+ \quad(n\geq d_r),\qquad (d_1,d_2,d_3)=(4,5,7).
+\end{equation}
+For $r=3$ and $r=2$ these are exactly Mathar's eight-term and six-term
+conjectured recurrences, respectively. For $r=1$ this is Kotesovec's
+five-term recurrence after the change of index $n\mapsto n+1$.
+\end{theorem}
+
+For example, $a_3(0),\ldots,a_3(7)=1,1,1,1,4,16,46,106$.
+At length four the admissible words are $0000$, $1,-3,1,1$,
+$1,1,-3,1$, and $1,1,1,-3$. Since $p_{3,0}(n)>0$ for $n\geq7$,
+the first seven values and the eight-term recurrence determine $a_3$ uniquely.
+Likewise $p_{2,0}(n)>0$ for $n\geq5$, so the first five values determine
+$a_2$ from its recurrence.
+
+\section{Counting by cyclic shifts}
+We give the version of the cycle lemma needed to identify the literal path
+count. Cuts are positions, so periodic words cause no division ambiguity.
+
+\begin{lemma}\label{lem:cycle}
+Let $w_1,\ldots,w_N$ be integers at most one, with sum $r>0$.
+Exactly $r$ of the $N$ cyclic cuts give a word whose nonempty prefix sums
+are all strictly positive, counting cuts with their positions.
+\end{lemma}
+\begin{proof}
+Write $S_0=0$, $S_i=w_1+\cdots+w_i$, and $m=\min_{0\leq i\leq N}S_i$.
+A cut after position $j\in\{0,\ldots,N-1\}$ is good precisely when
+\begin{equation}\label{eq:goodcut}
+ S_i>S_j\ (j<i\leq N),\qquad S_i+r>S_j\ (0\leq i\leq j).
+\end{equation}
+For each integer $c\in\{m,\ldots,m+r-1\}$, the path of partial sums
+visits $c$: from an occurrence of its minimum to $S_N=r$, upward jumps
+have size at most one. Let $j_c$ be its last visit to $c$.
+As $c<r$, this visit precedes $N$. After $j_c$ every partial sum exceeds
+$c$, since a later value below $c$ would require another visit on the way
+to $r$. Before $j_c$ every partial sum is at least $m$, and
+$m+r>c$. Hence \eqref{eq:goodcut} holds at $j_c$.
+
+Conversely, if a cut is good, a minimum cannot occur after it. Applying
+the second inequality in \eqref{eq:goodcut} at a minimum gives
+$m\leq S_j<m+r$; the first inequality makes $j$ the last visit to its
+level. Thus the good cuts are exactly the $r$ positions $j_c$.
+\end{proof}
+
+Erase the zero steps from an admissible word. If $k$ steps are $-3$,
+there are $3k$ steps $1$, so the remaining word has length $4k$.
+Prepending $r$ steps $1$ converts it into a word of length $4k+r$,
+sum $r$, and strictly positive nonempty prefix sums.
+Conversely, a positive word in $\{1,-3\}$ starts with at least $r$
+steps $1$ when $r\leq3$: a $-3$ among its first three positions would
+make a prefix sum nonpositive. Removing the first $r$ steps gives
+exactly a zero-sum word with floor $1-r$.
+
+There are $\binom{4k+r}{k}$ unrestricted words of length $4k+r$ and
+sum $r$. Count pairs consisting of such a word and a good cyclic cut.
+Lemma~\ref{lem:cycle} gives $r\binom{4k+r}{k}$ pairs. Each positive word
+has exactly $4k+r$ inverse pairs, one for each cut position, even if
+some of the rotated words coincide. Consequently the number of zero-free
+words is
+\begin{equation}\label{eq:b}
+ b_r(k)=\frac{r}{4k+r}\binom{4k+r}{k}
+       =\frac{r(4k+r-1)!}{k!(3k+r)!}.
+\end{equation}
+Choose the $4k$ nonzero positions among $n$ positions. Reinserting zeros
+does not change any attained height, which proves \eqref{eq:count}.
+
+For completeness, the formal Lagrange inversion formula
+\cite[Section I.5, formula (69)]{ac}, applied to $W=t(1+W)^4$,
+gives, for $k\geq1$,
+\[
+ [t^k](1+W)^r=\frac r k [u^{k-1}](1+u)^{4k+r-1}
+             =\frac r{4k+r}\binom{4k+r}{k}.
+\]
+The constant coefficient is one. Hence $\sum_{k\geq0}b_r(k)t^k=C(t)^r$.
+Finally $\sum_{n\geq m}\binom nm x^n=x^m/(1-x)^{m+1}$ proves
+\eqref{eq:gf}. This finishes the counting part of Theorem~\ref{thm:main}.
+
+\begin{corollary}[All lower floors; Prodinger's formula with horizontal steps]
+\label{cor:allfloors}
+For an integer $h\geq0$, let $f_h(n)$ count zero-sum words of length $n$
+in $\{1,0,-3\}$ with every prefix sum at least $-h$. Define
+\[
+ D_h(t)=\sum_{i=0}^{\lfloor h/4\rfloor}(-1)^i\binom{h-3i}{i}t^i,
+ \qquad t(x)=\frac{x^4}{(1-x)^4}.
+\]
+Then
+\begin{equation}\label{eq:allfloors}
+ \sum_{n\geq0} f_h(n)x^n=
+ \frac{D_h(t(x))C(t(x))^{h+1}}{1-x}.
+\end{equation}
+In particular, the Raney sum \eqref{eq:count} holds also for $r=4$
+(floor $-3$). For floor $-4$ the zero-free generating function is
+$(1-t)C(t)^5$, not $C(t)^5$.
+\end{corollary}
+\begin{proof}
+This is the horizontal-step form of Prodinger's Section 3 formula
+\cite{prodinger}, also Drube's equation (4) with $\alpha=\beta=h$
+\cite{drube}. Here is a formal derivation. Let $G_{\alpha,\beta}(t)$
+count words in $\{1,-3\}$ from height $\alpha$ to height $\beta$, staying
+nonnegative, with $t$ marking down-steps; take $G_{\alpha,\beta}=0$ for
+$\alpha<0$. Last passages through levels $0,\ldots,\beta-1$ decompose
+a path from $0$ to $\beta$ into $\beta+1$ nonnegative excursions and
+$\beta$ separating up-steps. Each excursion has generating function $C$:
+a first-return decomposition gives $C=1+tC^4$. Thus
+$G_{0,\beta}=C^{\beta+1}$.
+
+Decomposing the first step from height $\alpha-1$, for $\alpha\geq1$,
+gives
+\[
+ G_{\alpha,\beta}=G_{\alpha-1,\beta}-tG_{\alpha-4,\beta}
+                   -\boldsymbol{1}_{\alpha-1=\beta}.
+\]
+For $H_\beta(q,t)=\sum_{\alpha\geq0}G_{\alpha,\beta}(t)q^\alpha$
+this says
+\[
+ H_\beta(q,t)=\frac{C(t)^{\beta+1}-q^{\beta+1}}{1-q+tq^4}.
+\]
+The coefficient of $q^h$ in $1/(1-q+tq^4)$ is $D_h(t)$, by expansion
+as $\sum_{j\geq0}(q-tq^4)^j$. Set $\alpha=\beta=h$: the numerator
+term $q^{h+1}$ contributes nothing, so the zero-free generating function
+is $D_h C^{h+1}$. Inserting zero steps gives \eqref{eq:allfloors}.
+For $0\leq h\leq3$, $D_h=1$; for $h=4$, $D_4=1-t$.
+The naive extension to $r=5$ is not asserted in the posing source and
+fails at length four: floor $-4$ permits five words, while that sum gives six.
+\end{proof}
+
+\section{From factorial ratios to the exact recurrences}
+Let $\theta_t=t\,d/dt$, $\theta=x\,d/dx$, and define
+\[
+ E=x(1-x)\frac d{dx}-x,\qquad
+ t(x)=\frac{x^4}{(1-x)^4},\qquad
+ (\mathcal T B)(x)=\frac{B(t(x))}{1-x}.
+\]
+The chain rule gives
+\begin{equation}\label{eq:conjugacy}
+ E\mathcal T B=4\mathcal T(\theta_t B),
+\end{equation}
+because $x(1-x)(1/(1-x))'-x/(1-x)=0$ and
+$x(1-x)t'(x)=4t(x)$.
+
+The factorial expression \eqref{eq:b} yields
+\[
+ \frac{b_r(k+1)}{b_r(k)}=
+ \frac{\prod_{h=0}^{3}(4k+r+h)}{(k+1)\prod_{h=1}^{3}(3k+r+h)}.
+\]
+Cancelling factors gives $P_r(k+1)b_r(k+1)=Q_r(k)b_r(k)$, where
+\begin{center}\small
+\begin{tabular}{c ll}
+\toprule
+$r$&$P_r(z)$&$Q_r(z)$\\\midrule
+1&$3z(3z-1)(3z+1)$&$8(2z+1)(4z+1)(4z+3)$\\
+2&$3z(3z+1)(3z+2)$&$8(2z+1)(4z+3)(4z+5)$\\
+3&$3(z+1)(3z+1)(3z+2)$&$8(2z+3)(4z+3)(4z+5)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+As $b_r(0)=1$, coefficient comparison gives
+\begin{equation}\label{eq:base}
+ (P_r(\theta_t)-tQ_r(\theta_t))C(t)^r=P_r(0).
+\end{equation}
+Define the operators
+\[
+ L_r=(1-x)^4U_r(E)-256x^4V_r(E),
+ \quad U_r(z)=64P_r(z/4),\quad V_r(z)=Q_r(z/4)/4.
+\]
+Thus
+\begin{center}\small
+\begin{tabular}{c ll}
+\toprule
+$r$&$U_r(z)$&$V_r(z)$\\\midrule
+1&$27z^3-48z$&$z^3+6z^2+11z+6$\\
+2&$27z^3+108z^2+96z$&$z^3+10z^2+31z+30$\\
+3&$27z^3+216z^2+528z+384$&$z^3+14z^2+63z+90$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Equations \eqref{eq:gf}--\eqref{eq:base} imply
+\begin{equation}\label{eq:forcing}
+ L_1F_1=L_2F_2=0,\qquad L_3F_3=384(1-x)^3.
+\end{equation}
+Indeed, $L_r\mathcal T B=64(1-x)^4\mathcal T
+((P_r(\theta_t)-tQ_r(\theta_t))B)$, and
+$P_1(0)=P_2(0)=0$, $P_3(0)=6$.
+
+Here is an explicit coefficient certificate for the final step. Set
+\[
+ R_r=\sum_{j=0}^{d_r}x^j p_{r,j}(\theta+j),
+\]
+with the polynomials in Appendix~\ref{sec:coefficients}. Then
+\begin{equation}\label{eq:operators}
+ R_1=(1-x)^{-3}L_1,\qquad
+ R_2=(1-x)^{-2}(\theta-3)L_2,\qquad R_3=L_3.
+\end{equation}
+Operator products act from right to left; the two inverse powers mean
+multiplication by formal series with constant coefficient one.
+To expand these identities one uses $Dx=xD+1$, where $D=d/dx$.
+More explicitly, if $f=\sum f_nx^n$, then for $n\geq3$
+\begin{align*}
+ [x^n]Ef&=n(f_n-f_{n-1}),\\
+ [x^n]E^2f&=n^2f_n-n(2n-1)f_{n-1}+n(n-1)f_{n-2},\\
+ [x^n]E^3f&=n^3f_n-n(3n^2-3n+1)f_{n-1}
+             +3n(n-1)^2f_{n-2}-n(n-1)(n-2)f_{n-3}.
+\end{align*}
+Substitution of these three lines into $L_r$, with
+$(1-x)^4=1-4x+6x^2-4x^3+x^4$, gives \eqref{eq:operators}.
+For $R_2$ the product rule is applied once more to $(\theta-3)L_2$;
+multiplying by $(1-x)^2$ clears its displayed denominator.
+This supplies every coefficient in the appendix. For instance the extreme
+coefficients for $r=3$ are $3(n+4)(3n+4)(3n+8)$ and
+$229(n-4)(n-5)(n-6)$.
+
+For $n\geq d_r$, the coefficient of $x^n$ in $R_rF_r$ is exactly the
+left side of \eqref{eq:recurrences}. The forcing term in
+\eqref{eq:forcing} has degree three. Taking coefficients therefore proves
+all three recurrences and completes Theorem~\ref{thm:main}.
+
+\section{The recorded asymptotic formulas}\label{sec:asymptotic}
+\begin{corollary}\label{cor:asymptotic}
+Put $\lambda=1+4/3^{3/4}$, $\rho=\lambda^{-1}$, and $\tau=4/3$.
+For $r=1,2,3$, as $n\to\infty$,
+\begin{equation}\label{eq:asymptotic}
+ a_r(n)\sim
+ \frac{r\tau^{r-1}\sqrt{8/27}}{\sqrt\pi(1-\rho)^{3/2}}
+ \frac{\lambda^n}{n^{3/2}}.
+\end{equation}
+In particular, $a_3(n)\sim
+2^{5/2}\lambda^{n+3/2}/(3^{11/8}\sqrt\pi\,n^{3/2})$,
+and the constant for $a_2$ is half as large.
+\end{corollary}
+\begin{proof}
+The characteristic equations for $C=1+tC^4$ give
+$t_0=27/256$, $C(t_0)=\tau=4/3$.
+Writing $C=\tau-\alpha\sqrt{1-t/t_0}+O(1-t/t_0)$ in that equation,
+the linear term in $C-\tau$ vanishes and the next terms give
+$\alpha^2=\tau^2/6=8/27$. The branch with $C(0)=1$ has
+$\alpha>0$. This local expansion converges in powers of
+$\sqrt{1-t/t_0}$ by the analytic implicit-function theorem after this
+change of variable.
+
+The only nonzero finite critical value of this algebraic equation is $t_0$:
+solving $C-1-tC^4=0$ and $1-4tC^3=0$ gives the values above.
+Under $t=t(x)$ the four possible critical points are
+$x=s\zeta/(1+s\zeta)$, where $s=3^{3/4}/4$ and $\zeta^4=1$.
+Only $\zeta=1$ has minimal modulus, namely $\rho$; for all other choices
+$|1+s\zeta|<1+s$. The point $x=1$ is also farther from zero.
+The branch analytic at zero consequently has $\rho$ as its unique
+dominant singularity and is analytic in a dented neighborhood there.
+Moreover
+\[
+ 1-\frac{t(x)}{t_0}=\frac4{1-\rho}(1-x/\rho)
+                           +O((1-x/\rho)^2).
+\]
+Inserting the expansion of $C$ into \eqref{eq:gf} shows that the coefficient
+of $\sqrt{1-x/\rho}$ in $F_r$ is
+\[
+ -\frac{2r\tau^{r-1}\sqrt{8/27}}{(1-\rho)^{3/2}}.
+\]
+The transfer formula
+$[x^n](1-x/\rho)^{1/2}\sim-\rho^{-n}/(2\sqrt\pi n^{3/2})$
+\cite[Theorems VI.1 and VI.3]{ac} proves \eqref{eq:asymptotic};
+the full local expansion justifies transfer of its higher-order remainder.
+For $r=3$ simplifying with $1-\rho=(4/3^{3/4})/\lambda$ gives the
+stated constant. The factor $r\tau^{r-1}$ gives the ratio $1/2$ for
+$r=2$ and $3/16$ for $r=1$ relative to $r=3$.
+\end{proof}
+
+For A127902 at its printed index $N$, substitute $n=N-1$ in
+\eqref{eq:asymptotic}. Its leading constant becomes
+$\sqrt{4+3^{3/4}}\,3^{1/4}/(12\sqrt{\pi/2})$ times
+$\lambda^N/N^{3/2}$, exactly the form recorded by Kotesovec on
+20 August 2013. The constants for A379463 and A379464 agree with his
+15 January 2025 formulas.
+
+\section{Companion formulas and corrections}\label{sec:siblings}
+\begin{corollary}[The printed index of A127902]\label{cor:offset}
+Write $u_N=\mathrm{A127902}(N)$, $N\geq1$. Then
+\begin{equation}\label{eq:offset}
+ u_N=\sum_{k=0}^{\lfloor(N-1)/4\rfloor}
+       \binom{N-1}{4k}\frac{\binom{4k}{k}}{3k+1},
+ \qquad Y(x)=\sum_{N\geq1}u_Nx^N=x(1+Y+Y^4).
+\end{equation}
+Thus $u_N$ counts ordered rooted trees without vertex labels, with $N$
+vertices and outdegrees $0,1,4$.
+\end{corollary}
+\begin{proof}
+The identity $u_N=a_1(N-1)$ gives the sum. Substituting
+$C=(1-x)F_1$ into its defining equation gives
+$(1-x)F_1=1+x^4F_1^4$; setting $Y=xF_1$ proves the second identity.
+Root decomposition proves the tree statement, because a root is a leaf,
+has one child, or has four ordered children.
+\end{proof}
+The sum is Barry's zero-based coefficient formula
+\cite[Example 16, pp.\ 361--362]{barry}, shifted to the printed OEIS index;
+the tree correspondence is the specialization of
+\cite[Example 3, equation (24)]{bf} to outdegrees $0,1,4$.
+The first Formula of A127902 revision 38 instead prints the sum with $N$
+in place of $N-1$; it gives $2$ at $N=4$, whereas $u_4=1$.
+Equation~\eqref{eq:offset} is the corrected formula for the printed offset.
+The PARI and Magma programs enumerate path lengths starting at zero, so
+their first outputs correspond to $u_1$, not $u_0$.
+Devlin's 4 March 2012 comment says ``rooted labeled trees''.
+Under distinct vertex labeling this fails on vertex set $\{1,2\}$:
+either vertex can be the root, giving two trees, whereas $u_2=1$.
+The replacement interpretation is the one in Corollary~\ref{cor:offset}.
+Heinz's additional upper bound $y\leq x$ is automatic for the increments
+$1,0,-3$ and does not change the floor-zero count.
+
+\begin{corollary}[Zero-free siblings]\label{cor:zerofree}
+The coefficients $b_1(k)$ and $b_2(k)$ in \eqref{eq:b} are A002293$(k)$
+and A069271$(k)$, respectively. Their generating functions are $C(t)$ and
+$A(t)=C(t)^2$. In particular,
+\begin{gather}\label{eq:A}
+ A=(1+tA^2)^2,\qquad
+ 3k(3k+1)(3k+2)b_2(k)=8(4k+1)(2k-1)(4k-1)b_2(k-1)
+ \quad(k\geq1),\\
+ b_1(k)\sim\frac{\sqrt2}{3^{3/2}\sqrt\pi}
+        \frac{(256/27)^k}{k^{3/2}},\qquad
+ b_2(k)\sim\frac{2^{7/2}}{3^{5/2}\sqrt\pi}
+        \frac{(256/27)^k}{k^{3/2}}.\label{eq:zeroasymptotic}
+\end{gather}
+For every real $m$ and integer $n\geq1$,
+\begin{equation}\label{eq:powers}
+ [t^n]A(t)^{mn}=2m\binom{(2m+4)n-1}{n-1}.
+\end{equation}
+Here $A^{mn}$ and generalized binomial coefficients have their formal
+binomial-series meanings. In particular,
+\begin{equation}\label{eq:inverse}
+ [t^n]A(t)^{-2n}=4(-1)^n.
+\end{equation}
+Together with $A(0)=1$, these conditions uniquely determine $A$.
+\end{corollary}
+\begin{proof}
+The coefficient formulas in the two entries \cite{oeis4,oeis5} are
+\eqref{eq:b}. Root decomposition shows that $C$ counts full $4$-ary trees
+by internal vertices; $C^2$ counts ordered pairs of them.
+Thus $A=C^2=(1+tC^4)^2=(1+tA^2)^2$; the recurrence
+is the $r=2$ factorial ratio from Section 3 with $k$ shifted by one.
+The square-root expansion in Section~\ref{sec:asymptotic}, now in $t$,
+has coefficients $-\sqrt{8/27}$ and $-2(4/3)\sqrt{8/27}$ for $C$ and
+$C^2$. Transfer gives \eqref{eq:zeroasymptotic}.
+Lagrange inversion with $W=t(1+W)^4$ gives, for any real $s$,
+\[
+ [t^n](1+W)^s=\frac{s}{n}\binom{4n+s-1}{n-1}.
+\]
+Take $s=2mn$ to prove \eqref{eq:powers}. At $m=-2$ this is
+$-4\binom{-1}{n-1}=4(-1)^n$. If $A=1+\sum_{j\geq1}a_jt^j$,
+the coefficient of $t^n$ in $A^{-2n}$ is $-2na_n$ plus a polynomial
+in $a_1,\ldots,a_{n-1}$; hence the conditions determine $a_n$ successively.
+\end{proof}
+A069271 revision 178, Bala's 10 September 2025 block, prints $-4$ in
+place of \eqref{eq:inverse}. At $n=2$, $A=1+2t+9t^2+\cdots$ gives
+$[t^2]A^{-4}=4$, not $-4$. The following displayed power formula there
+is valid with its denominator when $m\ne-2$, not the printed exclusion
+$m\ne2$; equation~\eqref{eq:powers} covers the exceptional value too.
+Somos's PARI line of 28 March 2012 has an extra factor $2$:
+the correct expression is $\binom{4n+2}{n}/(2n+1)$, not twice this
+quantity (already $n=0$ gives $1$, not $2$).
+
+Other algebraic forms in A069271 follow directly. With formal square roots
+having constant coefficient one,
+\begin{equation}\label{eq:otherA}
+ 2t^2A^3=1-2tA-\sqrt{1-4tA},\qquad
+ B(z)=zA(z^2),\quad z=\frac{B}{(1+B^2)^2}.
+\end{equation}
+For the first equation substitute $t=(C-1)/C^4$ and use
+$\sqrt{1-4tC^2}=2/C-1$; the second is \eqref{eq:A}.
+If $K(v)=1+vK(v)^2$, then $K(tA)=C$, since
+$1+tAC^2=1+tC^4=C$. Therefore $tA$ is the reversion of $v/K(v)^2$,
+which is Bala's 8 October 2015 formula. Lagrange inversion applied to
+$\log C$ also gives
+\[
+ [t^n]\frac{tA'}{2A}=\binom{4n-1}{n-1}\quad(n\geq1).
+\]
+The factorial ratio identifies the ordinary hypergeometric series as
+${}_3F_2(\frac12,\frac34,\frac54;\frac43,\frac53;\frac{256t}{27})$;
+dividing the coefficients by $n!$ adds the denominator parameter $1$
+for the exponential generating function. Finally, substituting
+$t=z/(1+z)^4$ into $C=1+tC^4$ gives $C=1+z$ and proves Gutkovskiy's
+9 September 2026 identity
+$\sum_{n\geq0}b_2(n)z^n/(1+z)^{4n+2}=1$.
+
+The production-matrix statements in A069271 and A002293 have the same
+short explanation. Put $f=t/(1-f)^3$ and $g=1/(1-f)=C$.
+For the matrix with $M_{i0}=\binom{i+2}{2}$ and
+$M_{ij}=\binom{i-j+3}{2}$ for $1\leq j\leq i+1$ (zero otherwise),
+the column generating functions of $(M^n)_{0j}$ are $V_j=gf^j$.
+Indeed, their defining recurrences are
+$V_0=1+t\sum_iV_i\binom{i+2}{2}$ and
+$V_j=t\sum_{i\geq j-1}V_i\binom{i-j+3}{2}$ for $j\geq1$;
+substitution of $V_j=gf^j$ proves both using
+$\sum_{i\geq0}\binom{i+2}{2}f^i=(1-f)^{-3}$.
+The recurrences determine each coefficient uniquely. The upper-left
+entries therefore have generating function $C$ and the top-row sums
+have generating function $g/(1-f)=C^2$.
+
+\begin{corollary}[The floor $-2$ zero-free sibling]\label{cor:thirdpower}
+Let $v_N=\mathrm{A006632}(N)$ for $N\geq1$ and let
+$V(t)=\sum_{N\geq1}v_Nt^N$. Then
+\[
+ v_N=b_3(N-1),\qquad V=tC^3,\qquad
+ V=\frac{t}{(1-V)^3}.
+\]
+For $N\geq2$,
+\[
+ 3N(3N-1)(3N-2)v_N
+ =8(4N-5)(4N-3)(2N-1)v_{N-1}.
+\]
+Writing $B=V/t=C^3$, one has $B(0)=1$ and
+$[t^n]B^{-n}=-3$ for all $n\geq1$; these conditions determine $B$ uniquely.
+\end{corollary}
+\begin{proof}
+The defining binomial formula in A006632 \cite{oeis7} equals
+\eqref{eq:b} at $r=3$, $k=N-1$. Hence $V=tC^3=(C-1)/C$,
+which gives its equation. The factorial ratio in Section 3, with
+$k=N-2$, gives the recurrence. Lagrange inversion gives
+$[t^n]C^{-3n}=-3\binom{n-1}{n-1}=-3$.
+The coefficient of $t^n$ in $B^{-n}$ is $-n[t^n]B$ plus a
+polynomial in the earlier coefficients, proving uniqueness.
+\end{proof}
+The three recorded formulas are credited to van Hoeij (11 November 2011;
+corrected by Manyama, 28 November 2025), Mathar (7 May 2021), and
+Bala (24 July 2025), respectively. They are proved as recorded, rather
+than presented as new formulas. Other interpretations and identifications
+in A006632 are not covered separately.
+
+\section{Source coverage and formal statements}\label{sec:coverage}
+The table covers the posing entries and their first cross-referenced
+companions \cite{oeis4,oeis5,oeis6}. Other combinatorial interpretations are distinguished from
+identities settled by the present generating functions.
+\begingroup\small
+\begin{longtable}{@{}p{.32\linewidth}p{.62\linewidth}@{}}
+\toprule Source item and locator & Mathematical coverage\\\midrule\endhead
+A379464 rev. 20, second Formula & Proved: Mathar recurrence, $n\geq7$.\\
+A379463 rev. 16, second Formula & Proved: Mathar recurrence, $n\geq5$.\\
+Both entries, Scheuerle programs, 7 Jan. 2025 & Reproved; prior proof Krattenthaler, 2015, Theorem 10.4.5; Prodinger, 2019/2020, Theorem 1 (crediting Selkirk, 2019); Asinowski--Hackl--Selkirk, 2020/2022, Proposition 3; Drube, 2022, Corollary 2.4. Horizontal insertion gives the recorded sums.\\
+Both entries, first Formula & Proved: Kotesovec's recorded asymptotics, Corollary~\ref{cor:asymptotic}.\\
+A127902 rev. 38, first Formula & Refuted-and-corrected: the printed offset needs $N-1$; $N=4$ is a counterexample. Prior proof of the zero-based sum: Barry, 2015/2016, Example 16; Corollary~\ref{cor:offset}.\\
+A127902, Kotesovec's 20 Aug. 2013 formulas & Proved: five-term recurrence for $N\geq5$ and the recorded asymptotic.\\
+A127902, definition; Gutkovskiy 1 July 2020 & Proved: series reversion and $Y=x(1+Y+Y^4)$.\\
+A127902, Devlin 4 Mar. 2012; Heinz 14 Apr. 2014 & Refuted-and-corrected: distinct vertex labeling fails at two vertices; ordered unlabeled rooted trees work. Proved: Heinz's path interpretation.\\
+A069271 rev. 178, Selkirk's 31 Mar. 2020 comments & Reproved; prior proof Prodinger, 2019/2020, Theorem 1: floor $-1$ paths and pairs of full $4$-ary trees, generated by $C^2$.\\
+A069271, Mathar 7 June 2013; Eldar 14 Sept. 2025 & Proved: zero-free recurrence and asymptotic, Corollary~\ref{cor:zerofree}.\\
+A069271, Bala 10 Sept. 2025 & Refuted-and-corrected: inverse-power value $4(-1)^n$; $n=2$ gives $4$, not $-4$. The divided power formula excludes $m=-2$.\\
+A069271, Somos PARI 28 Mar. 2012 & Refuted-and-corrected: remove the extra factor $2$; already false at $n=0$.\\
+A069271, remaining algebraic formulas & Proved: square-root, reversion, hypergeometric, logarithmic-derivative and 2026 substitution identities; production matrix, Section~\ref{sec:siblings}. Identifications with further sequence IDs are not covered separately.\\
+A002293, Fuss--Catalan formula and powers & Reproved; prior proof Prodinger, 2019/2020, Section 1: $[t^k]C^r=\frac{r}{4k+r}\binom{4k+r}{k}$. Its quartic equation, coefficient convolution, hypergeometric series and asymptotic follow as above.\\
+A002293, restricted-word conjecture and other interpretations & Not covered: pattern-avoiding words, maps, forests, tilings, monoids, moment densities and external transform identifications.\\
+A069271, specialized plane-tree interpretations & Not covered: the separately defined plane-tree classes in its linked papers.\\
+A006632 rev. 152, corrected g.f.; Mathar 7 May 2021; Bala 24 July 2025 & Proved: $V=tC^3=t/(1-V)^3$, the recorded recurrence for $N\geq2$, and the zero-offset inverse-power characterization, Corollary~\ref{cor:thirdpower}. Prior enumeration: the $r=3$ Raney formula. Other interpretations are not covered separately.\\
+A240904 rev. 16 & Not covered: it has increments $\{1,3,0,-1,-3\}$ and an upper barrier, unlike the present class.\\
+All fixed lower floors & Reproved; prior proof Prodinger, 2019/2020, Section 3, then Drube, 2022, equation (4). Corollary~\ref{cor:allfloors} supplies horizontal insertion.\\
+\bottomrule
+\end{longtable}\endgroup
+
+The Lean declaration
+\href{https://github.com/the-omega-institute/trureturing/blob/03150b25ffad5ced1bebdca2efc8c05b484c1eca/D5/S1/Recurrence/MatharA379464/Result.lean}{\texttt{MatharA379464.Result.result}}
+has as its statement the eight-term recurrence for all $n\geq7$, with
+the sequence defined as the cardinality of length-$n$ words with increments
+$1,0,-3$, total sum zero, and every prefix sum at least $-2$.
+In the pinned
+\href{https://github.com/the-omega-institute/trureturing/blob/03150b25ffad5ced1bebdca2efc8c05b484c1eca/D5/S1/Words/LatticePaths/MatharA379464Counting.lean}{\texttt{MatharA379464Counting.lean}},
+\texttt{three\_positive\_rotations} is Lemma~\ref{lem:cycle} for $r=3$,
+and \texttt{binomial\_counting} is \eqref{eq:count} for $r=3$.
+Its displayed sum ranges over $0\leq k\leq n$; terms with $4k>n$ vanish
+because $\binom{n}{4k}=0$. The other floors, their recurrences, the
+all-floor correction and analytic asymptotics have the written proofs given
+here. The accompanying checker compares
+literal path counts with \eqref{eq:count} for $0\leq n\leq240$ and checks
+the polynomial differential identities in exact arithmetic. It also compares
+\eqref{eq:allfloors} with literal counts for $0\leq h\leq8$ and
+$0\leq n\leq120$, verifies \eqref{eq:powers} for $-5\leq m\leq5$,
+$1\leq n\leq16$, and checks the production matrix through power $30$.
+These finite comparisons are separate from the all-index written proofs.
+
+\appendix
+\section{Recurrence coefficients}\label{sec:coefficients}
+In each row below the entry with index $j$ multiplies $a_r(n-j)$.
+The initial values and the range $n\geq d_r$ are as in Theorem~\ref{thm:main}.
+For the eight-term recurrence ($r=3$):
+\begin{align*}
+p_{3,0}&=3(n+4)(3n+4)(3n+8),\\
+p_{3,1}&=3(-63n^3-297n^2-349n-60),\\
+p_{3,2}&=3(189n^3+270n^2-229n-140),\\
+p_{3,3}&=15(-63n^3+117n^2+44n-64),\\
+p_{3,4}&=689n^3-5372n^2+6946n-1288,\\
+p_{3,5}&=(n-4)(201n^2+2767n-3011),\\
+p_{3,6}&=-(n-5)(579n+257)(n-4),\\
+p_{3,7}&=229(n-5)(n-6)(n-4).
+\end{align*}
+For the six-term recurrence ($r=2$):
+\begin{align*}
+p_{2,0}&=3n(3n+4)(n-3)(3n+8),\\
+p_{2,1}&=3(-45n^4+54n^3+192n^2-27n-20),\\
+p_{2,2}&=9(n-1)(30n^3-72n^2-7n+20),\\
+p_{2,3}&=-3(n-1)(n-2)(90n^2-234n+95),\\
+p_{2,4}&=-(n-1)(n-2)(n-3)(121n+499),\\
+p_{2,5}&=229(n-1)(n-2)(n-3)(n-4).
+\end{align*}
+For the five-term recurrence ($r=1$, with the offset already changed):
+\begin{align*}
+p_{1,0}&=3n(3n-4)(3n+4),\\
+p_{1,1}&=-3(2n-1)(18n^2-18n-7),\\
+p_{1,2}&=3(n-1)(54n^2-108n+47),\\
+p_{1,3}&=-54(n-2)(n-1)(2n-3),\\
+p_{1,4}&=-229(n-3)(n-2)(n-1).
+\end{align*}
+
+\begin{thebibliography}{99}\small
+\bibitem{oeis3} The OEIS Foundation Inc.,
+\emph{A379464: Paths with steps $(1,1),(1,0),(1,-3)$ staying on or above $y=-2$},
+entry by Emely Hanna Li Lobnig, 23 December 2024;
+formula contributions by Thomas Scheuerle (7 January 2025),
+Vaclav Kotesovec (15 January 2025), and R. J. Mathar (29 January 2025).
+Revision 20. \url{https://oeis.org/A379464}.
+\bibitem{oeis2} The OEIS Foundation Inc.,
+\emph{A379463: Paths with steps $(1,1),(1,0),(1,-3)$ staying on or above $y=-1$},
+entry by Emely Hanna Li Lobnig, 23 December 2024;
+formula contributions by Thomas Scheuerle (7 January 2025),
+Vaclav Kotesovec (15 January 2025), and R. J. Mathar (29 January 2025).
+Revision 16. \url{https://oeis.org/A379463}.
+\bibitem{oeis1} The OEIS Foundation Inc.,
+\emph{A127902: Series reversion of $x/(1+x+x^4)$},
+entry by Paul Barry, 5 February 2007; recurrence and asymptotic
+by Vaclav Kotesovec, 20 August 2013. Revision 38, 30 May 2026.
+\url{https://oeis.org/A127902}.
+\bibitem{ac} Philippe Flajolet and Robert Sedgewick,
+\emph{Analytic Combinatorics}, Cambridge University Press, 2009.
+\href{https://doi.org/10.1017/CBO9780511801655}{doi:10.1017/CBO9780511801655}.
+Author edition: \url{https://algo.inria.fr/flajolet/Publications/book.pdf}.
+\bibitem{oeis4} The OEIS Foundation Inc.,
+\emph{A069271: $\binom{4n+1}{n}2/(3n+2)$}, entry by Henry Bottomley,
+12 March 2002. Revision 178, 9 September 2026.
+\url{https://oeis.org/A069271}.
+\bibitem{oeis5} The OEIS Foundation Inc.,
+\emph{A002293: Number of dissections of a polygon}, Fuss--Catalan sequence.
+\url{https://oeis.org/A002293}.
+\bibitem{oeis6} The OEIS Foundation Inc.,
+\emph{A240904: Lattice paths with five allowed increments and two barriers},
+entry by Alois P.\ Heinz. Revision 16, 20 December 2020.
+\url{https://oeis.org/A240904}.
+\bibitem{prodinger} Helmut Prodinger,
+\emph{On $k$-Dyck paths with a negative boundary},
+arXiv:1912.06930, first version 2019; version 3, 18 August 2020.
+Theorem 1 and Section 3, pp.\ 3--8.
+\url{https://arxiv.org/abs/1912.06930v3}.
+Published in \emph{Journal of Combinatorial Mathematics and Combinatorial
+Computing} \textbf{119} (2024), 3--12,
+\href{https://doi.org/10.61091/jcmcc119-01}{doi:10.61091/jcmcc119-01}.
+\bibitem{drube} Paul Drube,
+\emph{Raised $k$-Dyck Paths}, arXiv:2206.01194v1, 2 June 2022.
+Theorem 2.3, Corollary 2.4 and equation (4), pp.\ 3--4.
+\url{https://arxiv.org/abs/2206.01194v1}.
+\bibitem{krattenthaler} Christian Krattenthaler,
+\emph{Lattice Path Enumeration}, in M.\ B\'ona (ed.),
+\emph{Handbook of Enumerative Combinatorics}, CRC Press, 2015,
+pp.\ 589--678. Theorems 10.4.5 and 10.4.7.
+\url{https://arxiv.org/abs/1503.05930v3}.
+\bibitem{ahs} Andrei Asinowski, Benjamin Hackl and Sarah J.\ Selkirk,
+\emph{Down-step statistics in generalized Dyck paths},
+\emph{Discrete Mathematics \& Theoretical Computer Science}
+\textbf{24}(1) (2022), article 17. Preprint first released 30 July 2020;
+version 6, 13 May 2022, Proposition 3 and equation (2).
+\url{https://arxiv.org/abs/2007.15562v6}.
+\href{https://doi.org/10.46298/dmtcs.7163}{doi:10.46298/dmtcs.7163}.
+\bibitem{dejager} Isaac DeJager, Frank Seidl, Madeleine Naquin and Paul Drube,
+\emph{Colored Motzkin Paths of Higher Order},
+\emph{Journal of Integer Sequences} \textbf{24} (2021), article 21.4.6,
+Corollary 11, p.\ 12.
+\url{https://cs.uwaterloo.ca/journals/JIS/VOL24/Drube/drube7.pdf}.
+\bibitem{barry} Paul Barry,
+\emph{Riordan arrays, generalized Narayana triangles, and series reversion},
+\emph{Linear Algebra and its Applications} \textbf{491} (2016), 343--385.
+Available online 17 November 2015. Example 16, pp.\ 361--362.
+\href{https://doi.org/10.1016/j.laa.2015.10.032}{doi:10.1016/j.laa.2015.10.032}.
+\bibitem{bf} Cyril Banderier and Philippe Flajolet,
+\emph{Basic analytic combinatorics of directed lattice paths},
+\emph{Theoretical Computer Science} \textbf{281} (2002), 37--80.
+Examples 3 and 6, pp.\ 52 and 64, equations (24), (44)--(45).
+\href{https://doi.org/10.1016/S0304-3975(02)00007-5}{doi:10.1016/S0304-3975(02)00007-5}.
+\bibitem{oeis7} The OEIS Foundation Inc.,
+\emph{A006632: $3\binom{4n-1}{n-1}/(4n-1)$},
+revision 152, 22 October 2026.
+\url{https://oeis.org/A006632}.
+\bibitem{mathar2021} Richard J.\ Mathar,
+\emph{P-finite Recurrences From Generating Functions with Roots of Polynomials},
+arXiv:2109.02112v1, 5 September 2021, Sections 1--2.
+\url{https://arxiv.org/abs/2109.02112v1}.
+\end{thebibliography}
+\end{document}

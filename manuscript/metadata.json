@@ -1,0 +1,94 @@
+{
+  "id": "mathar379464-bounded-path-recurrences",
+  "revision": 3,
+  "problem_ids": ["mathar379464"],
+  "topic": "Mathar's recurrence conjectures for paths with increments 1, 0 and -3, and their generating-function companions",
+  "title": "Mathar's path recurrences and alternative proofs of Prodinger's enumeration",
+  "creators": [
+    {"name": "Haobo Ma", "affiliation": "ChronoAI Pte Ltd, Singapore"},
+    {"name": "Wenlin Zhang", "affiliation": "National University of Singapore; ChronoAI Pte Ltd, Singapore"}
+  ],
+  "abstract": "Using Prodinger's enumeration (arXiv:1912.06930v3, 2020, Theorem 1 and Section 3), we give alternative counting proofs and prove Mathar's eight-term recurrence for floor -2 paths (OEIS A379464, revision 20, second Formula, 29 January 2025, n >= 7) and his six-term recurrence for floor -1 (A379463, revision 16, second Formula, same date, n >= 5). An explicit differential-operator certificate transports the known Raney counts to the exact recurrences. We include every fixed lower floor by a finite polynomial correction, prove the recorded asymptotics, and correct the indexing and tree wording in A127902 and companion formulas in A069271.",
+  "summary": "Written proofs of Mathar's two recurrences, the zero-floor recurrence and the recorded asymptotics, with a self-contained derivation of the earlier Raney enumeration and its all-floor polynomial correction. Companion corrections give the shifted A127902 binomial sum, ordered unlabeled rooted-tree interpretation, A069271 inverse-power coefficient 4*(-1)^n, exceptional multiplier m=-2, and corrected PARI factor. Exact symbolic identities and bounded integer comparisons accompany the proofs.",
+  "license": "cc-by-4.0",
+  "evidence_url": "https://github.com/the-omega-institute/trureturing/blob/03150b25ffad5ced1bebdca2efc8c05b484c1eca/D5/S1/Recurrence/MatharA379464/Result.lean",
+  "coverage": [
+    {
+      "source": "OEIS A379464 revision 20, second Formula, R. J. Mathar, 29 January 2025",
+      "statement": "Eight-term recurrence for literal floor -2 path counts, n >= 7",
+      "status": "Proved",
+      "proof": "Written differential-operator certificate; pinned declaration D5.S1.Recurrence.MatharA379464.Result.result"
+    },
+    {
+      "source": "OEIS A379463 revision 16, second Formula, R. J. Mathar, 29 January 2025",
+      "statement": "Six-term recurrence for floor -1 path counts, n >= 5",
+      "status": "Proved",
+      "proof": "Written proof"
+    },
+    {
+      "source": "Prodinger, arXiv:1912.06930, 2019 first version and 2020 revision, Theorem 1 and Section 3; Drube, arXiv:2206.01194v1, 2022, equation (4) and Corollary 2.4",
+      "statement": "Raney enumeration and polynomial correction for every fixed lower floor, followed by horizontal-step insertion",
+      "status": "Reproved; prior proof Prodinger, 2019/2020; Drube, 2022",
+      "proof": "Written proof"
+    },
+    {
+      "source": "OEIS A379464 and A379463 first Formulas; A127902 revision 38, Kotesovec formulas; A069271 revision 178 and A002293",
+      "statement": "Recorded asymptotics and zero-floor and zero-free recurrences, with explicit index ranges",
+      "status": "Proved",
+      "proof": "Written coefficient and singularity-analysis proofs"
+    },
+    {
+      "source": "OEIS A127902 revision 38, first Formula and Devlin comment of 4 March 2012",
+      "statement": "Printed binomial sum needs N-1 at entry index N; trees are ordered rooted trees without vertex labels",
+      "status": "Refuted-and-corrected",
+      "counterexamples": "At N=4 the unshifted formula is 2 instead of 1; at two distinctly labeled vertices the rooted-tree count is 2 instead of 1"
+    },
+    {
+      "source": "OEIS A069271 revision 178, Bala block of 10 September 2025",
+      "statement": "The coefficient [t^n]A(t)^(-2n) equals 4*(-1)^n, not a constant -4; the divided power formula excludes m=-2",
+      "status": "Refuted-and-corrected",
+      "proof": "Written Lagrange inversion and coefficient-by-coefficient uniqueness argument; n=2 gives 4"
+    },
+    {
+      "source": "OEIS A069271 revision 178, Somos PARI line of 28 March 2012",
+      "statement": "Remove the extra factor 2 from binomial(4n+2,n)/(2n+1)",
+      "status": "Refuted-and-corrected",
+      "counterexample": "At n=0 the expression as printed is 2 instead of 1"
+    },
+    {
+      "source": "OEIS A069271 and A002293 algebraic formulas",
+      "statement": "Quartic and square-root equations, power coefficients, reversions, hypergeometric forms and production-matrix interpretations",
+      "status": "Proved",
+      "proof": "Written identities and coefficient arguments"
+    },
+    {
+      "source": "Asinowski, Hackl and Selkirk, arXiv:2007.15562v6, Proposition 3; DeJager, Seidl, Naquin and Drube, Journal of Integer Sequences 24 (2021), Corollary 11; Barry, 2015/2016, Example 16; Banderier and Flajolet, 2002, Examples 3 and 6",
+      "statement": "Previously proved cycle-lemma enumeration, generating-function powers, zero-floor binomial sum and ordered-tree correspondence",
+      "status": "Prior proof cited",
+      "proof": "Written specializations with attribution in the note"
+    },
+    {
+      "source": "OEIS A006632 revision 152, van Hoeij generating function corrected by Manyama on 28 November 2025; Mathar recurrence of 7 May 2021; Bala inverse-power condition of 24 July 2025",
+      "statement": "V=t*C^3=t/(1-V)^3; recurrence for N >= 2; [t^n](C^3)^(-n)=-3 for n >= 1 and coefficientwise uniqueness",
+      "status": "Proved",
+      "proof": "Written Raney specialization, factorial ratio and Lagrange inversion"
+    },
+    {
+      "source": "OEIS A002293 restricted-word conjecture and other specialized interpretations; A240904 revision 16",
+      "statement": "Additional combinatorial classes and five-increment, two-barrier paths",
+      "status": "Not covered"
+    }
+  ],
+  "formal_sources": [
+    {
+      "url": "https://github.com/the-omega-institute/trureturing/blob/03150b25ffad5ced1bebdca2efc8c05b484c1eca/D5/S1/Recurrence/MatharA379464/Result.lean",
+      "declaration": "D5.S1.Recurrence.MatharA379464.Result.result",
+      "scope": "Eight-term recurrence for the literal floor -2 path count at every n >= 7"
+    },
+    {
+      "url": "https://github.com/the-omega-institute/trureturing/blob/03150b25ffad5ced1bebdca2efc8c05b484c1eca/D5/S1/Words/LatticePaths/MatharA379464Counting.lean",
+      "declarations": ["three_positive_rotations", "binomial_counting"],
+      "scope": "Three positive cyclic cuts for lists of integers at most one of sum three; binomial insertion formula for floor -2 paths"
+    }
+  ]
+}
